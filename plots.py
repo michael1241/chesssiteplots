@@ -15,6 +15,7 @@ lidf = lidf.rename(columns={'TimeControl': 'time_control'})
 lidf = lidf.drop(columns=['UTCDate'])
 li_pivot = lidf.pivot_table(index='day', values='time_control', columns='time_class', aggfunc='count')
 
+
 # time estimates
 # I used the lichess time controls https://lichess.org/faq#time-controls and assumed that 1/2 time used on average
 # rapid time estimate used for daily/correspondence
@@ -44,4 +45,10 @@ def plotData(df1, df1source, df2, df2source, title):
     plt.show()
 
 #plotData(cc_pivot, 'chess.com', li_pivot, 'lichess.org', 'Grandmaster games on chess.com vs lichess.org')
-plotData(timeConvert(cc_pivot), 'chess.com', timeConvert(li_pivot), 'lichess.org', 'Grandmaster hours on chess.com vs lichess.org')
+#plotData(timeConvert(cc_pivot), 'chess.com', timeConvert(li_pivot), 'lichess.org', 'Grandmaster hours on chess.com vs lichess.org')
+
+# remove index='day' from pivots to get the overall data
+#print(cc_pivot)
+#print(li_pivot)
+#print(timeConvert(cc_pivot))
+#print(timeConvert(li_pivot))
