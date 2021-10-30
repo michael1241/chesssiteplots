@@ -26,14 +26,17 @@ def timeConvert(df):
     return new_df
 
 def plotData(df1, df1source, df2, df2source, title):
-    fig, axs = plt.subplots(2, sharex=True, sharey=True)
+    fig, axs = plt.subplots(1, sharex=True, sharey=True)
 
     color_dict = {'ultraBullet': 'tab:orange', 'bullet':'tab:blue', 'blitz': 'tab:red', 'rapid':'blue', 'classical': 'tab:olive', 'daily': 'purple'}
-    df1.plot.bar(ax=axs[0],stacked=True, color=color_dict, legend=None)
-    axs[0].title.set_text(df1source)
-    df2.plot.bar(ax=axs[1],stacked=True, color=color_dict, legend=None)
-    axs[1].title.set_text(df2source)
+    df1.plot.bar(ax=axs,stacked=True, color=color_dict, legend=None, align='edge', width=-0.3, edgecolor='black')
+    handles_1, labels_1 = plt.gca().get_legend_handles_labels()
+    labels_1 = ['chess.com: {}'.format(l) for l in labels_1]
+    df2.plot.bar(ax=axs,stacked=True, color=color_dict, legend=None, align='edge', hatch='/.-\\', width=0.3, edgecolor='black')
     handles, labels = plt.gca().get_legend_handles_labels()
+    labels = ['Lichess: {}'.format(l) for l in labels]
+    labels.extend(labels_1)
+    handles.extend(handles_1)
     by_label = dict(zip(labels, handles))
     fig.legend(by_label.values(), by_label.keys())
     fig.suptitle(title)
